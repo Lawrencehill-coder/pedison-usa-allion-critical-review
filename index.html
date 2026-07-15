@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Allion Fund 1, LP | Regulatory Disclosure Benchmark & Compliance Gap Report</title>
+<style>
+  :root{
+    --navy:#1F4E79;
+    --ltblue:#D9E2F3;
+    --alt:#EEF2FA;
+    --grey:#555555;
+    --white:#FFFFFF;
+    --ok:#2E7D32;
+    --gap:#B3261E;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:Verdana, Arial, sans-serif;
+    color:var(--grey);
+    background:var(--white);
+    line-height:1.55;
+    font-size:14px;
+  }
+  .wrap{max-width:960px;margin:0 auto;padding:0 28px;}
+  header{
+    background:var(--navy);
+    color:var(--white);
+    padding:34px 0 26px 0;
+  }
+  header .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-size:11.5px;
+    color:var(--ltblue);
+    font-weight:bold;
+    margin-bottom:10px;
+  }
+  header h1{
+    margin:0 0 8px 0;
+    font-size:25px;
+    line-height:1.3;
+  }
+  header .meta{
+    font-size:12.5px;
+    color:var(--ltblue);
+    line-height:1.7;
+  }
+  .version-badge{
+    display:inline-block;
+    background:var(--ltblue);
+    color:var(--navy);
+    font-size:15px;
+    font-weight:bold;
+    padding:8px 16px;
+    border-radius:6px;
+    margin:6px 0 14px 0;
+  }
+
+  /* Reviewer intake modal */
+  .modal-overlay{
+    position:fixed;inset:0;
+    background:rgba(31,78,121,0.55);
+    display:flex;align-items:center;justify-content:center;
+    z-index:1000;
+    padding:20px;
+  }
+  .modal-card{
+    background:var(--white);
+    border-radius:10px;
+    max-width:420px;
+    width:100%;
+    padding:28px 26px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  }
+  .modal-card h2{
+    border:none;padding:0;margin:0 0 8px 0;font-size:18px;color:var(--navy);
+  }
+  .modal-card p{font-size:13px;margin-bottom:16px;}
+  .modal-card label{
+    display:block;font-size:12.5px;font-weight:bold;color:var(--navy);margin-bottom:5px;
+  }
+  .modal-card input{
+    width:100%;padding:9px 10px;margin-bottom:6px;
+    border:1px solid var(--ltblue);border-radius:5px;
+    font-family:Verdana, Arial, sans-serif;font-size:13px;
+    box-sizing:border-box;
+  }
+  .modal-card input.invalid{
+    border-color:var(--gap);
+  }
+  .field-error{
+    display:none;
+    color:var(--gap);
+    font-size:11.5px;
+    margin:0 0 12px 0;
+  }
+  .field-error.show{display:block;}
+  .name-row{
+    display:flex;
+    gap:12px;
+  }
+  .name-row > div{
+    flex:1;
+    min-width:0;
+  }
+  .modal-card .btn-link{width:100%;text-align:center;padding:11px 16px;cursor:pointer;border:none;font-size:13.5px;}
+  .modal-skip{
+    display:block;text-align:center;margin-top:10px;font-size:11.5px;color:var(--grey);
+    text-decoration:underline;cursor:pointer;background:none;border:none;
+  }
+
+  /* Notes / review section */
+  .notes-box{
+    width:100%;
+    min-height:150px;
+    padding:12px;
+    border:1px solid var(--ltblue);
+    border-radius:6px;
+    font-family:Verdana, Arial, sans-serif;
+    font-size:13px;
+    box-sizing:border-box;
+    resize:vertical;
+  }
+  .notes-box.small{
+    min-height:70px;
+  }
+  .section-note{
+    margin-top:20px;
+    padding-top:14px;
+    border-top:1px dashed var(--ltblue);
+  }
+  .section-note label{
+    display:block;
+    font-size:11.5px;
+    font-weight:bold;
+    color:var(--navy);
+    margin-bottom:6px;
+  }
+  .reviewer-fallback{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:14px 0;
+  }
+  .reviewer-fallback div{flex:1;min-width:200px;}
+  .reviewer-fallback label{
+    display:block;font-size:12px;font-weight:bold;color:var(--navy);margin-bottom:4px;
+  }
+  .reviewer-fallback input{
+    width:100%;padding:8px 10px;border:1px solid var(--ltblue);border-radius:5px;
+    font-family:Verdana, Arial, sans-serif;font-size:13px;box-sizing:border-box;
+  }
+  .submit-btn{
+    display:inline-block;
+    background:var(--navy);
+    color:var(--white);
+    border:none;
+    padding:13px 26px;
+    border-radius:6px;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:10px;
+  }
+  .submit-btn:hover{opacity:0.9;}
+  .confirmation-box{
+    display:none;
+    background:var(--alt);
+    border-left:4px solid var(--ok);
+    padding:18px 20px;
+    font-size:13.5px;
+    margin-top:14px;
+  }
+  .confirmation-box strong{color:var(--ok);}
+  .notice{
+    background:var(--alt);
+    border-left:4px solid var(--navy);
+    padding:16px 20px;
+    margin:26px 0;
+    font-size:13px;
+  }
+  .notice strong{color:var(--navy);}
+  section{padding:22px 0 6px 0;border-bottom:1px solid var(--alt);}
+  section:last-of-type{border-bottom:none;}
+  h2{
+    color:var(--navy);
+    font-size:18px;
+    margin:0 0 14px 0;
+    border-left:4px solid var(--ltblue);
+    padding-left:10px;
+  }
+  h3{
+    color:var(--navy);
+    font-size:15px;
+    margin:22px 0 8px 0;
+  }
+  p{margin:0 0 12px 0;}
+  ul, ol{margin:0 0 14px 0;padding-left:22px;}
+  li{margin-bottom:6px;}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12.8px;
+    margin:14px 0 22px 0;
+    table-layout:fixed;
+  }
+  td, th{
+    word-wrap:break-word;
+    overflow-wrap:break-word;
+  }
+  caption{
+    text-align:left;
+    font-weight:bold;
+    color:var(--navy);
+    padding-bottom:6px;
+    font-size:13px;
+  }
+  th{
+    background:var(--navy);
+    color:var(--white);
+    text-align:left;
+    padding:9px 10px;
+    font-size:12px;
+  }
+  td{
+    padding:8px 10px;
+    border-bottom:1px solid var(--alt);
+    vertical-align:top;
+  }
+  tr:nth-child(even) td{background:var(--alt);}
+  td.status-missing{color:var(--gap);font-weight:bold;}
+  td.status-present{color:var(--ok);font-weight:bold;}
+  .num-col{width:30px;text-align:center;font-weight:bold;color:var(--navy);}
+  .item-col{width:24%;}
+  .action-col{width:26%;color:var(--navy);}
+  table.checklist{
+    font-size:11.5px;
+  }
+  table.checklist td, table.checklist th{
+    padding:7px 8px;
+  }
+  .bottomline{
+    background:var(--alt);
+    border-left:4px solid var(--gap);
+    padding:14px 18px;
+    font-size:13px;
+    margin:10px 0 24px 0;
+  }
+  .bottomline strong{color:var(--gap);}
+  footer{
+    background:var(--alt);
+    padding:22px 0 34px 0;
+    font-size:11.5px;
+    color:var(--grey);
+  }
+  footer p{margin-bottom:8px;}
+  .signoff{margin-top:18px;font-size:13.5px;color:var(--grey);}
+  .btn-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 22px 0;}
+  .btn-link{
+    display:inline-block;
+    background:var(--navy);
+    color:var(--white) !important;
+    text-decoration:none;
+    font-size:12.5px;
+    font-weight:bold;
+    padding:9px 16px;
+    border-radius:5px;
+  }
+  .btn-link.alt{
+    background:var(--alt);
+    color:var(--navy) !important;
+    border:1px solid var(--navy);
+  }
+  .btn-link:hover{opacity:0.88;}
+  code{
+    background:var(--alt);
+    padding:1px 5px;
+    border-radius:3px;
+    font-family:Consolas, monospace;
+    font-size:11.5px;
+    color:var(--navy);
+  }
+  @media print{
+    header{background:var(--navy) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    th{background:var(--navy) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<!-- Hidden static form so Netlify detects this form at deploy time and enables Netlify Forms.
+     The visible UI above submits to this form's name via JavaScript fetch (see script at bottom). -->
+<form name="allion-review-comments" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="text" name="reportVersion" />
+  <textarea name="notes"></textarea>
+  <input name="bot-field" />
+</form>
+
+<div class="modal-overlay" id="reviewerModal">
+  <div class="modal-card">
+    <h2>Before you begin</h2>
+    <p>Please enter your full name and email to continue. This is required so a copy of any notes or questions you leave can be sent to you, along with a copy to Lawrence Hill.</p>
+    <div class="name-row">
+      <div>
+        <label for="modalFirstName">First name</label>
+        <input type="text" id="modalFirstName" placeholder="First name">
+        <div class="field-error" id="modalFirstNameError">Please enter your first name.</div>
+      </div>
+      <div>
+        <label for="modalLastName">Last name</label>
+        <input type="text" id="modalLastName" placeholder="Last name">
+        <div class="field-error" id="modalLastNameError">Please enter your last name.</div>
+      </div>
+    </div>
+    <label for="modalEmail">Your email</label>
+    <input type="email" id="modalEmail" placeholder="name@company.com">
+    <div class="field-error" id="modalEmailError">Please enter a valid email address.</div>
+    <button class="btn-link" style="cursor:pointer;" onclick="saveReviewer()">Continue to Report</button>
+  </div>
+</div>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Pedison USA Corporation &nbsp;|&nbsp; Internal Compliance Working Document</div>
+    <h1>Allion Fund 1, LP<br>Regulatory Disclosure Benchmark &amp; Compliance Gap Report</h1>
+    <div class="version-badge">Document Version 1.0 &nbsp;&bull;&nbsp; Last Updated July 15, 2026</div>
+    <div class="meta">
+      Prepared for: Dickson Ewemade (Founder &amp; CEO) and the Pedison USA Operations Team<br>
+      Prepared by: Lawrence Hill, Senior Manager, Structured Finance &amp; Capital Solutions<br>
+      Date: July 15, 2026
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="notice">
+    <strong>Important note before this goes further:</strong> I am not a securities attorney and this report is not legal advice. It is built from public filings, industry-standard disclosure practice, and direct review of competitor sites, intended to give the team a clear starting map of gaps and open questions. Everything flagged below as missing or recommended should go through our in-house Senior Legal Counsel, and our Investor Advisor if they have not already been looped in, before we change anything on a live, investor-facing page.
+  </div>
+
+  <section>
+    <h2>1. What Allion Fund 1 Is Actually Registered To Do</h2>
+    <p>Pulled directly from Allion's SEC Form D filing (EDGAR / FormDS.com), rather than assumed from marketing copy:</p>
+    <table>
+      <tr><th style="width:34%;">Field</th><th>Value</th></tr>
+      <tr><td>Filing type</td><td>Form D, <strong>New</strong>, filed 2026-04-09</td></tr>
+      <tr><td>Exemption claimed</td><td><strong>Rule 506(c)</strong> of Regulation D</td></tr>
+      <tr><td>Security type</td><td><strong>Debt Only</strong></td></tr>
+      <tr><td>Industry classification</td><td>Commercial</td></tr>
+      <tr><td>Amount sold to date</td><td><strong>$0 &mdash; "Yet to Sell"</strong></td></tr>
+      <tr><td>Filer address on Form D</td><td>8111 Lyndon B Johnson Fwy, Suite 105, Dallas, TX 75251</td></tr>
+      <tr><td>Executive listed</td><td>Dickson Ewemade</td></tr>
+    </table>
+    <p>Two things this confirms:</p>
+    <ul>
+      <li><strong>Allion is a 506(c)-only offering.</strong> There is no companion Form S-1, no Regulation A track, and no financing subsidiary. This sets the correct weight class for our disclosures. We do not need Phoenix Energy-level disclosure bulk (that exists because Phoenix runs three offering types in parallel), but we do need everything a 506(c)-only issuer is required to carry.</li>
+      <li><strong>Address discrepancy.</strong> The Form D lists Suite 105, while some Allion materials reference Suite 110. This should be reconciled across every filing and public-facing document before it draws unnecessary attention in a state notice filing or exam.</li>
+    </ul>
+    <p>Live links, Allion and Pedison:</p>
+    <div class="btn-row">
+      <a class="btn-link" href="https://pedisonusa.com/allionfund/index.html" target="_blank" rel="noopener">Allion Fund 1 (live site) &rarr;</a>
+      <a class="btn-link" href="https://pedison-usa-allion-teaser.netlify.app/" target="_blank" rel="noopener">Allion Phase 1 Teaser (standalone) &rarr;</a>
+      <a class="btn-link alt" href="https://www.formds.com/issuers/allion-fund-1-lp" target="_blank" rel="noopener">Allion Form D (FormDS.com) &rarr;</a>
+    </div>
+    <div class="section-note">
+      <label for="note-1">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-1" data-title="What Allion Fund 1 Is Actually Registered To Do" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>2. How the Five Comparables Were Selected</h2>
+    <p>Rather than picking five arbitrary competitors, these five were chosen to bracket the actual range of structures Allion could reasonably be compared to, from lighter-weight to heavier-weight regulatory postures.</p>
+    <table>
+      <tr><th class="num-col">#</th><th style="width:26%;">Entity</th><th>Why it's in this set</th></tr>
+      <tr><td class="num-col">1</td><td>DLP Capital &mdash; DLP Lending Fund</td><td>Closest structural match: evergreen, real-estate-secured private debt fund, <strong>506(c)-only</strong>, no companion registered offering. Same weight class as Allion.</td></tr>
+      <tr><td class="num-col">2</td><td>PassiveInvesting.com &mdash; Real Estate Debt Fund ("PIC Fund I")</td><td>A <strong>506(c) + Reg A</strong> debt fund that markets through individual, single-purpose gated landing pages. Directly relevant to the landing-page question in Section 6.</td></tr>
+      <tr><td class="num-col">3</td><td>EquityMultiple</td><td>A marketplace model with an <strong>affiliated broker-dealer relationship</strong>, mixing 506(b) and 506(c) offerings. Shows disclosure once a broker-dealer is in the chain.</td></tr>
+      <tr><td class="num-col">4</td><td>RealtyMogul (Income REIT + private placements)</td><td>Runs a <strong>Regulation A+ qualified REIT</strong> (SEC-qualified offering circular, Form 1-A) alongside individual <strong>506(c)</strong> private placements, managed by an <strong>SEC-registered investment adviser</strong>. Shows the heavier end of the spectrum.</td></tr>
+      <tr><td class="num-col">5</td><td>Phoenix Energy</td><td>506(c) <strong>+ Form S-1 registered offering + financing subsidiary offering</strong>. The heaviest-weight comparable, useful as an upper bound.</td></tr>
+    </table>
+    <p>Allion's actual profile (506(c)-only, no broker-dealer, no registered investment adviser, no REIT election) sits closest to #1 and #2. Entities #3&ndash;5 show what additional obligations attach once a company adds broker-dealers, registered advisers, or registered/qualified offering types. None of that applies to Allion today, but it's worth understanding in case our structure changes.</p>
+    <p>Live links to each comparable:</p>
+    <div class="btn-row">
+      <a class="btn-link" href="https://dlpcapital.com/invest/dlp-lending-fund" target="_blank" rel="noopener">DLP Lending Fund &rarr;</a>
+      <a class="btn-link" href="https://offerings.passiveinvesting.com/pic-fund-i" target="_blank" rel="noopener">PassiveInvesting.com PIC Fund I &rarr;</a>
+      <a class="btn-link" href="https://equitymultiple.com/" target="_blank" rel="noopener">EquityMultiple &rarr;</a>
+      <a class="btn-link" href="https://www.realtymogul.com/investment-options/the-income-reit" target="_blank" rel="noopener">RealtyMogul Income REIT &rarr;</a>
+      <a class="btn-link" href="https://phoenixenergy.com/private-placement-offering/" target="_blank" rel="noopener">Phoenix Energy &rarr;</a>
+    </div>
+    <div class="section-note">
+      <label for="note-2">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-2" data-title="How the Five Comparables Were Selected" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>3. Disclosure Element Deep-Dive, Entity by Entity</h2>
+
+    <h3>DLP Capital &mdash; DLP Lending Fund (506(c)-only, closest match)</h3>
+    <ul>
+      <li>Not-an-offer language in full caps at the page bottom</li>
+      <li>States any offer is made only by means of a PPM to accredited investors</li>
+      <li>States the website excludes material information contained in the PPM, including risk factors</li>
+      <li>States plainly there is no guarantee of return of capital</li>
+      <li>Forward-looking statements caveat tied to specific footnotes on every target-return figure shown</li>
+      <li>Discloses the investment is not a bank deposit and is not FDIC-insured</li>
+      <li>States neither the SEC nor any state regulator has approved or recommended the investment</li>
+      <li>Every performance figure (IRR, preferred return, target return) is footnoted to a numbered disclosure</li>
+      <li>Full disclosure block appears at the bottom of every fund page, not just once site-wide</li>
+    </ul>
+
+    <h3>PassiveInvesting.com &mdash; Real Estate Debt Fund / PIC Fund I (gated landing-page model)</h3>
+    <ul>
+      <li>Confirms Rule 506(c), accredited investors only, with specific net worth and income thresholds spelled out in plain language</li>
+      <li>States the offering is also available under Regulation A for certain terms (same sponsor, parallel exemptions, each with its own disclosure requirements)</li>
+      <li>Gated content model: the actual offering memorandum is not shown until a prospect submits a lead form</li>
+      <li>States explicitly that non-accredited investors will not be allowed to participate</li>
+      <li>States any offer occurs only through a PPM, a determination of suitability, independent verification, and a subscription agreement (a four-part gate)</li>
+      <li>Closing acknowledgment line: by accessing the website, the visitor agrees to the terms of the disclaimer</li>
+      <li>Standard risk disclosures: loss of principal, illiquidity, no guarantee of returns, past performance not indicative of future results</li>
+      <li>Built on a lead-generation funnel platform rather than a standalone custom HTML build, relevant to the recommendation in Section 6</li>
+    </ul>
+
+    <h3>EquityMultiple (marketplace + affiliated broker-dealer)</h3>
+    <ul>
+      <li>Gates access to accredited investors under Rule 501 of Regulation D</li>
+      <li>Discloses which exemption applies per offering (varies by deal, not one blanket statement)</li>
+      <li>Discloses its Alpine Notes product is not FDIC-insured and does not carry a guaranteed return</li>
+      <li>Fee disclosure is explicit and specific per product, not one blanket number</li>
+      <li>Independent third-party reviews are currently mixed, a reminder that aggregate review scores only help if the underlying reputation supports them</li>
+    </ul>
+
+    <h3>RealtyMogul &mdash; Income REIT + private placements (SEC-registered adviser)</h3>
+    <ul>
+      <li>REIT product operates under a qualified Form 1-A offering circular, filed with and reviewed by the SEC (a materially higher bar than a 506(c) notice filing)</li>
+      <li>Discloses a specific 10% of income or net worth investment cap for non-accredited investors, citing the exact Regulation A rule</li>
+      <li>Discloses the REIT is managed by an SEC-registered investment adviser</li>
+      <li>Discloses an affiliated broker-dealer that performs diligence on each sponsor and deal before listing</li>
+      <li>Individual private placements are separately labeled as Rule 506(c) offerings requiring investor-level accreditation verification</li>
+    </ul>
+
+    <h3>Phoenix Energy (previously benchmarked, heaviest-weight comparable)</h3>
+    <ul>
+      <li>Full disclosure block repeated on every page, sized for 506(c) + Form S-1 + a financing subsidiary offering all at once</li>
+      <li>Discloses its broker-dealer relationship (Crescent Securities Group, FINRA/SIPC)</li>
+      <li>SEC oil &amp; gas reserve reporting rules and non-GAAP financial measure disclosures (industry-specific, not relevant to Allion, but a useful example of scope matching complexity)</li>
+      <li>Mainly useful as an upper bound</li>
+    </ul>
+    <div class="section-note">
+      <label for="note-3">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-3" data-title="Disclosure Element Deep-Dive, Entity by Entity" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>4. Consolidated Disclosure Checklist</h2>
+    <p>What all five comparables carry, versus what currently appears on our live Allion Fund pages.</p>
+    <table class="checklist">
+      <tr>
+        <th class="num-col">#</th>
+        <th class="item-col">Disclosure element</th>
+        <th>Present in comparables?</th>
+        <th>Present on Allion's live site?</th>
+        <th class="action-col">Recommended action</th>
+      </tr>
+      <tr><td class="num-col">1</td><td>"Not an offer to sell / solicitation to buy" language</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible</td><td>Add the standard not-an-offer disclaimer to the top and footer of the canonical page, using counsel-approved wording.</td></tr>
+      <tr><td class="num-col">2</td><td>Statement that any offer is made only by means of a PPM</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible</td><td>Add a PPM-only-offer sentence directly next to any return figures or terms shown.</td></tr>
+      <tr><td class="num-col">3</td><td>Rule 506(c) accredited-investor-only statement, with specific thresholds spelled out</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible</td><td>Add the accredited-investor definition and dollar thresholds, matching Rule 501(a) of Regulation D.</td></tr>
+      <tr><td class="num-col">4</td><td>Statement that the issuer takes "reasonable steps to verify" accredited status</td><td>Explicit in 3 of 5, implied in the rest</td><td class="status-missing">Not visible</td><td>State plainly that Pedison/Allion verifies accredited status before accepting any subscription.</td></tr>
+      <tr><td class="num-col">5</td><td>Risk factors summary (illiquidity, loss of principal, speculative nature)</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible</td><td>Add a short risk factors paragraph covering illiquidity, possible loss of principal, and the speculative nature of the investment.</td></tr>
+      <tr><td class="num-col">6</td><td>"No guarantee of return" / "past performance is not indicative of future results"</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible</td><td>Add this exact pairing of disclaimers near every performance or return figure on the page.</td></tr>
+      <tr><td class="num-col">7</td><td>Forward-looking statements caveat tied to any target-return figures shown</td><td>Yes &mdash; all 5</td><td class="status-missing">Not visible. The 8&ndash;10% preferred return and 70/30 split are shown with no caveat.</td><td>Footnote the preferred return and profit split as targets, not guarantees, with a standard forward-looking-statements caveat.</td></tr>
+      <tr><td class="num-col">8</td><td>Statement that SEC/state regulators have not approved or recommended the offering</td><td>Explicit in 3 of 5</td><td class="status-missing">Not visible</td><td>Add a line stating neither the SEC nor any state regulator has approved or recommended the offering.</td></tr>
+      <tr><td class="num-col">9</td><td>Confidentiality / not-for-redistribution language</td><td>Common on teaser-style materials</td><td class="status-missing">Present in the standalone teaser built separately, not on the live pedisonusa.com pages.</td><td>Carry the same confidentiality language from the teaser onto the live Allion pages so both versions match.</td></tr>
+      <tr><td class="num-col">10</td><td>State blue-sky / notice filing disclosure</td><td>Rarely shown publicly (back-end filing matter)</td><td>Back-end filing status should be confirmed</td><td>No public-facing text required. Confirm and log the Texas and NASAA filing status internally (see Section 5).</td></tr>
+      <tr><td class="num-col">11</td><td>Broker-dealer disclosure where applicable</td><td>Present where relevant</td><td>Appears not applicable; should be confirmed and stated explicitly if true</td><td>Confirm no broker-dealer is used. If confirmed, add a brief self-distribution statement for clarity.</td></tr>
+      <tr><td class="num-col">12</td><td>Contact info tied specifically to compliance/investor relations questions</td><td>Yes &mdash; all 5</td><td class="status-missing">Only general site contact info</td><td>Add a specific compliance or investor-relations contact line, separate from the general inquiries address.</td></tr>
+      <tr><td class="num-col">13</td><td>Copyright / trademark notice</td><td>Yes &mdash; all 5</td><td class="status-present">Present generally</td><td>No action needed. Keep consistent across any new pages.</td></tr>
+      <tr><td class="num-col">14</td><td>Cookie / privacy policy</td><td>Yes &mdash; all 5</td><td>Present, but it's a general consumer privacy statement, not a securities disclosure.</td><td>Keep both. Consider a short note clarifying the privacy policy and the securities disclosure serve different purposes.</td></tr>
+      <tr><td class="num-col">15</td><td>Explicit statement of which exemption applies, if a site offers more than one product</td><td>Present where relevant</td><td>Not currently an issue (single offering)</td><td>No action needed today. Build this habit before any second fund or product is added.</td></tr>
+    </table>
+    <div class="bottomline">
+      <strong>Bottom line:</strong> across every Allion Fund page reviewed, none of the core securities-specific disclosure elements (rows 1&ndash;9) were visible. The only disclosure-adjacent content anywhere on pedisonusa.com is the general consumer privacy policy, which addresses data handling, not securities risk or offering terms. This is the single largest and most consequential gap identified in this review.
+    </div>
+    <div class="section-note">
+      <label for="note-4">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-4" data-title="Consolidated Disclosure Checklist" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>5. Critical Evaluation, by Regulatory Layer</h2>
+
+    <h3>Federal (SEC) layer</h3>
+    <ul>
+      <li>No visible not-an-offer, accredited-investor-only, or PPM-only language anywhere on the live Allion Fund pages, though every comparable carries this without exception</li>
+      <li>Rule 506(c) allows general solicitation, but that comes paired with an obligation to take reasonable steps to verify accreditation and avoid materially misleading statements in whatever is publicly solicited</li>
+      <li>No risk factors summary on the public page at all</li>
+      <li>No forward-looking statements caveat tied to the preferred-return figures, even though the 8&ndash;10% range strongly suggests these are targets, not fixed terms</li>
+    </ul>
+
+    <h3>State layer</h3>
+    <ul>
+      <li>Rule 506(c) offerings are exempt from state registration under federal preemption, but not from state notice filing requirements</li>
+      <li>Most states still require a Form D copy notice filing through NASAA's Electronic Filing Depository, plus a filing fee in many states (Florida is the one exception)</li>
+      <li>Since our Form D was only filed April 9, 2026 with $0 sold, worth confirming state notice filings are actually completed in Texas and everywhere else we have solicited or expect to solicit, especially given general solicitation is in use</li>
+      <li>We should confirm the Texas State Securities Board notice filing has been made separately from the federal Form D</li>
+      <li>None of our live Allion pages reference Texas or federal regulatory status at all, even though this language already exists in the teaser built separately in this conversation</li>
+    </ul>
+
+    <h3>Consistency and recordkeeping layer</h3>
+    <ul>
+      <li>Suite 105 versus Suite 110 address inconsistency should be resolved, with one address used everywhere: the Form D, the website, business cards, and every investor-facing document</li>
+      <li>No centralized disclosure block currently used consistently across all Allion materials. The teaser built in this conversation carries a complete footer; the live pedisonusa.com Allion pages do not</li>
+    </ul>
+    <div class="section-note">
+      <label for="note-5">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-5" data-title="Critical Evaluation, by Regulatory Layer" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>6. HTML Landing Pages: Individualized-Per-Investor vs. a Standardized Path</h2>
+
+    <h3>The good news</h3>
+    <p>Individualized outreach is not, by itself, a 506(c) problem. Rule 506(c) exists specifically to permit general solicitation and advertising, including targeted outreach to named individual prospects and personalized landing pages. What creates risk is what's on the page (or missing from it), and how consistently that content is controlled across every version that goes out.</p>
+
+    <h3>Where the real risk lives: version sprawl, not personalization</h3>
+    <ul>
+      <li>Each new one-off page is a separate piece of solicitation material that must independently carry the full, current disclosure set</li>
+      <li>If disclosure language ever gets corrected after counsel review, every previously built one-off page needs the same update, and older pages can keep circulating with stale disclosures if there's no central inventory of what's live</li>
+      <li>With no version control, it's hard to answer a simple compliance question after the fact: what did a specific investor actually see, and when</li>
+      <li>Personalization of a name, a specific deal like Red Oak, or a return target is fine. What should never vary between versions is the disclosure block, the risk factors, or the accredited-investor gating language</li>
+    </ul>
+
+    <h3>What the comparables actually do (none build bespoke pages per prospect)</h3>
+    <ul>
+      <li>DLP and Phoenix run a small, fixed set of fund pages, one per active fund, each carrying the full disclosure block, and personalize the outreach rather than the page</li>
+      <li>PassiveInvesting.com runs a single gated landing page per offering on a repeatable funnel template, with the disclosure block baked into the template</li>
+      <li>RealtyMogul separates by product type, not by individual investor, with each product type carrying its own centrally controlled disclosure language</li>
+    </ul>
+
+    <h3>Recommendation</h3>
+    <ol>
+      <li>Maintain one canonical, disclosure-complete master page per active offering (currently just Allion Fund 1), with the disclosure footer treated as a non-negotiable, unchanging block</li>
+      <li>Personalize the outreach, not the disclosure. Add investor- or deal-specific callouts as a section within the canonical page or a linked one-pager, rather than duplicating the whole page</li>
+      <li>Keep a simple distribution log: which version of which page was sent to which prospect, and when</li>
+      <li>Route any new one-off page through the same disclosure template used on the canonical page</li>
+      <li>Have counsel bless one master disclosure block (not-an-offer language, accredited-investor gate, risk factors, forward-looking statements, state notices) and treat it as locked, pasted in unedited everywhere</li>
+    </ol>
+    <p>This gets us a standardized, defensible, single point of update, without giving up the ability to send individualized, targeted outreach, which is exactly what 506(c) is designed to allow.</p>
+
+    <h3>Key definitions</h3>
+    <table>
+      <tr><th style="width:26%;">Term</th><th>What it means here</th></tr>
+      <tr><td>Canonical master page</td><td>The one authoritative, version-controlled page for a given offering. Every other piece of outreach links back to it or copies its disclosure block verbatim, rather than becoming its own independent page.</td></tr>
+      <tr><td>Disclosure block / footer</td><td>The fixed set of legal language (not-an-offer language, accredited-investor gate, risk factors, forward-looking statements, state notices) that must appear identically wherever the offering is described. This block is locked and only changes with counsel approval.</td></tr>
+      <tr><td>Version sprawl</td><td>The risk created when many independent copies of a page exist with no central control, so disclosure language can drift, go stale, or go missing across different versions over time.</td></tr>
+      <tr><td>Distribution log</td><td>A simple record (a spreadsheet is enough) noting which version of which page was sent to which prospect, and when, so we can reconstruct what any investor actually saw if it's ever needed.</td></tr>
+      <tr><td>Noindex / canonical tag</td><td>HTML instructions placed in a page's code that tell search engines not to index a supplemental page, and to treat another URL (the master page) as the authoritative version instead.</td></tr>
+    </table>
+
+    <h3>How this looks in practice</h3>
+    <svg width="100%" viewBox="0 0 900 230" role="img" aria-label="Diagram of the recommended update cycle: master page, personalize outreach, distribution log, counsel review for new language, looping back to the master page">
+      <defs>
+        <marker id="rec-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1F4E79" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <rect x="20" y="55" width="180" height="70" rx="10" fill="#1F4E79"/>
+      <text x="110" y="82" text-anchor="middle" fill="#FFFFFF" font-family="Verdana, Arial, sans-serif" font-size="13" font-weight="bold">Master page</text>
+      <text x="110" y="102" text-anchor="middle" fill="#D9E2F3" font-family="Verdana, Arial, sans-serif" font-size="11">Locked disclosure block</text>
+
+      <line x1="200" y1="90" x2="235" y2="90" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#rec-arrow)"/>
+
+      <rect x="237" y="55" width="180" height="70" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="327" y="82" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="13" font-weight="bold">Personalize outreach</text>
+      <text x="327" y="102" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="11">Name, deal, greeting only</text>
+
+      <line x1="417" y1="90" x2="452" y2="90" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#rec-arrow)"/>
+
+      <rect x="454" y="55" width="180" height="70" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="544" y="82" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="13" font-weight="bold">Distribution log</text>
+      <text x="544" y="102" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="11">Who, what, when</text>
+
+      <line x1="634" y1="90" x2="669" y2="90" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#rec-arrow)"/>
+
+      <rect x="671" y="55" width="180" height="70" rx="10" fill="#EEF2FA" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="761" y="82" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="13" font-weight="bold">Counsel reviews</text>
+      <text x="761" y="102" text-anchor="middle" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="11">If new language is needed</text>
+
+      <path d="M761 125 L761 175 L110 175 L110 127" fill="none" stroke="#1F4E79" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#rec-arrow)"/>
+      <text x="430" y="192" text-anchor="middle" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="11">Approved language folds back into the one master page</text>
+    </svg>
+    <div class="section-note">
+      <label for="note-6">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-6" data-title="HTML Landing Pages: Individualized-Per-Investor vs. a Standardized Path" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>7. Website Architecture vs. Adding Landing Pages: Ranking and Search Considerations</h2>
+    <p>This is a separate question from the disclosure question above. Even if every one-off page carried perfect disclosures, how we structure those pages on the web affects how search engines treat pedisonusa.com as a whole, and it affects how professional the operation looks to anyone who stumbles across more than one version of it.</p>
+
+    <h3>Why this matters technically</h3>
+    <ul>
+      <li><strong>Domain authority is not per-page, it's cumulative.</strong> Every backlink, every bit of trust a search engine assigns, accrues to a domain over time. A page built as its own standalone Netlify site (a new subdomain like <code>pedison-allion-investorX.netlify.app</code>) starts with zero authority of its own and does nothing to strengthen pedisonusa.com's standing. A page built as a folder under pedisonusa.com (like <code>pedisonusa.com/allionfund/</code>) inherits the authority of the parent domain instead.</li>
+      <li><strong>Duplicate and near-duplicate content gets suppressed, not doubled up.</strong> If the same offering description, the same return figures, and the same disclosure block appear across many separate one-off pages, search engines generally treat this as duplicate content and will index only one version, often not the one we'd want surfaced, while quietly discounting the rest.</li>
+      <li><strong>Doorway pages are a named policy problem.</strong> Google's search guidelines specifically flag "doorway pages," meaning many slightly different pages built to funnel visitors toward the same destination, as a practice that can suppress or penalize a domain's visibility. A pattern of one bespoke HTML page per investor or per campaign, all saying nearly the same thing, resembles this pattern structurally even when the intent is personalization rather than manipulation. This is a reputational and technical risk on top of the disclosure risk already covered in Section 6.</li>
+      <li><strong>Index bloat dilutes relevance signals.</strong> Every additional indexed page competes with our own other pages for the same keywords (Allion Fund, real estate debt fund, Dallas, accredited investors, and so on). More near-identical pages generally means weaker rankings for all of them, not stronger.</li>
+    </ul>
+
+    <h3>What this means in practice for Allion</h3>
+    <ul>
+      <li>The canonical master page described in Section 6 should live as a proper part of pedisonusa.com's site architecture (for example, a folder under the existing domain) rather than as an independent one-off subdomain, so it builds the domain's authority instead of starting from zero every time.</li>
+      <li>Personalized outreach (an email, a deal-specific one-pager) should link to that one canonical page, using tracked parameters if we want to know who came from where, rather than becoming its own separately indexed page.</li>
+      <li>If a deal-specific or investor-specific page is genuinely needed as a standalone artifact (for example, to attach to an email or share outside a browser), it can carry a <code>noindex</code> tag and a canonical link tag pointing back to the master page, so search engines don't treat it as a competing or duplicate destination even though a human can still view it directly.</li>
+      <li>None of this changes the recommendation in Section 6. It reinforces it: the same one-master-page structure that solves the disclosure consistency problem also solves the search and reputation problem.</li>
+    </ul>
+    <div class="section-note">
+      <label for="note-7">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-7" data-title="Website Architecture vs. Adding Landing Pages: Ranking and Search Considerations" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>8. Recommended Procedure for Individual Investor Outreach</h2>
+    <p>A concrete, repeatable process for building the master page once, and for sending targeted outreach to a named prospect afterward, without creating a new disclosure risk each time.</p>
+
+    <h3>Step by step: building the master page</h3>
+    <ol>
+      <li><strong>Draft the content.</strong> Fund overview, terms, and any project spotlight, using Pedison's standard brand template.</li>
+      <li><strong>Insert the disclosure block verbatim.</strong> Paste in the counsel-approved disclosure language exactly as approved. Never edit it ad hoc while building the page.</li>
+      <li><strong>Publish it inside pedisonusa.com's own site architecture.</strong> A folder or path under the existing domain (for example, <code>pedisonusa.com/allionfund/</code>), not a standalone subdomain, so it inherits the domain's authority rather than starting from zero (see Section 7).</li>
+      <li><strong>Version and date-stamp it.</strong> Add a version number and last-updated date in the footer, and keep the source file in a version-controlled location so past versions are recoverable.</li>
+    </ol>
+    <svg width="100%" viewBox="0 0 900 130" role="img" aria-label="Diagram of the four master page build steps: draft content, insert disclosure block, publish under site architecture, version and log">
+      <defs>
+        <marker id="build-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1F4E79" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <rect x="10" y="35" width="190" height="60" rx="10" fill="#1F4E79"/>
+      <text x="105" y="60" text-anchor="middle" fill="#FFFFFF" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Draft content</text>
+      <text x="105" y="78" text-anchor="middle" fill="#D9E2F3" font-family="Verdana, Arial, sans-serif" font-size="10.5">Terms, project spotlight</text>
+
+      <line x1="200" y1="65" x2="230" y2="65" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#build-arrow)"/>
+
+      <rect x="232" y="35" width="200" height="60" rx="10" fill="#1F4E79"/>
+      <text x="332" y="60" text-anchor="middle" fill="#FFFFFF" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Insert disclosure block</text>
+      <text x="332" y="78" text-anchor="middle" fill="#D9E2F3" font-family="Verdana, Arial, sans-serif" font-size="10.5">Counsel-approved, verbatim</text>
+
+      <line x1="432" y1="65" x2="462" y2="65" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#build-arrow)"/>
+
+      <rect x="464" y="35" width="200" height="60" rx="10" fill="#1F4E79"/>
+      <text x="564" y="60" text-anchor="middle" fill="#FFFFFF" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Publish in site folder</text>
+      <text x="564" y="78" text-anchor="middle" fill="#D9E2F3" font-family="Verdana, Arial, sans-serif" font-size="10.5">Not a new subdomain</text>
+
+      <line x1="664" y1="65" x2="694" y2="65" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#build-arrow)"/>
+
+      <rect x="696" y="35" width="180" height="60" rx="10" fill="#2E7D32"/>
+      <text x="786" y="60" text-anchor="middle" fill="#FFFFFF" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Version &amp; log</text>
+      <text x="786" y="78" text-anchor="middle" fill="#E1F0E2" font-family="Verdana, Arial, sans-serif" font-size="10.5">Date-stamped</text>
+    </svg>
+
+    <h3>Step by step: building an individual outreach page for one investor</h3>
+    <ol>
+      <li><strong>Start from the canonical master page.</strong> Confirm the current, counsel-approved version and its URL before beginning any outreach.</li>
+      <li><strong>Copy the disclosure block verbatim.</strong> Do not retype, summarize, or edit it. If a supplemental page needs the disclosure text physically present, paste it exactly as it appears on the master page's current version.</li>
+      <li><strong>Add personalization only.</strong> The investor's name, relevant context (for example, interest in Red Oak), and a greeting. Nothing about the terms, risk factors, or disclosure language should differ from the master page.</li>
+      <li><strong>Tag it noindex with a canonical link back to the master page.</strong> This keeps the supplemental page from competing with or diluting the master page in search results (see Section 7).</li>
+      <li><strong>Use a tracked link if attribution is needed,</strong> instead of building a separate page just to track who clicked.</li>
+      <li><strong>Log the send.</strong> Investor name, page/version, link, and date, in the shared distribution log.</li>
+      <li><strong>If the conversation surfaces a need for new or different disclosure language, stop and route it to Legal first</strong> (see Section 9). Never add new disclosure language directly to a one-off page.</li>
+    </ol>
+    <svg width="100%" viewBox="0 0 900 250" role="img" aria-label="Diagram of building an individual outreach page: copy disclosures verbatim, add personalization, tag noindex and canonical, log the send, with a branch to counsel review if new disclosure language is needed">
+      <defs>
+        <marker id="ind-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#1F4E79" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+      <rect x="10" y="20" width="185" height="60" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="102" y="45" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Copy disclosures</text>
+      <text x="102" y="63" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="10.5">Verbatim from master</text>
+
+      <line x1="195" y1="50" x2="225" y2="50" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#ind-arrow)"/>
+
+      <rect x="227" y="20" width="195" height="60" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="324" y="45" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Add personalization</text>
+      <text x="324" y="63" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="10.5">Name, deal, greeting only</text>
+
+      <line x1="422" y1="50" x2="452" y2="50" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#ind-arrow)"/>
+
+      <rect x="454" y="20" width="200" height="60" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="554" y="45" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Tag noindex + canonical</text>
+      <text x="554" y="63" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="10.5">Points back to master</text>
+
+      <line x1="654" y1="50" x2="684" y2="50" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#ind-arrow)"/>
+
+      <rect x="686" y="20" width="170" height="60" rx="10" fill="#D9E2F3" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="771" y="45" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Log the send</text>
+      <text x="771" y="63" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="10.5">Who, what, when</text>
+
+      <line x1="324" y1="80" x2="324" y2="140" stroke="#1F4E79" stroke-width="1.5" marker-end="url(#ind-arrow)"/>
+      <text x="345" y="112" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="10.5">If new language is needed</text>
+
+      <rect x="180" y="150" width="290" height="60" rx="10" fill="#EEF2FA" stroke="#1F4E79" stroke-width="0.5"/>
+      <text x="325" y="175" text-anchor="middle" fill="#1F4E79" font-family="Verdana, Arial, sans-serif" font-size="12.5" font-weight="bold">Counsel reviews new language</text>
+      <text x="325" y="193" text-anchor="middle" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="10.5">Never added ad hoc to the one-off page</text>
+
+      <path d="M180 180 L130 180 L130 50 L102 50" fill="none" stroke="#1F4E79" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ind-arrow)"/>
+      <text x="20" y="145" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="10.5">Approved language folds</text>
+      <text x="20" y="160" fill="#555555" font-family="Verdana, Arial, sans-serif" font-size="10.5">into the master page</text>
+    </svg>
+    <div class="section-note">
+      <label for="note-8">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-8" data-title="Recommended Procedure for Individual Investor Outreach" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section>
+    <h2>9. Legal Counsel Review and Update Management</h2>
+    <p>This section covers who reviews disclosure changes, when, and how an approved update actually gets managed across every page it touches, so this doesn't become a one-time exercise that quietly goes stale.</p>
+
+    <h3>What gets routed to counsel</h3>
+    <ul>
+      <li>Any new disclosure language, or any change to existing disclosure language, before it goes live anywhere</li>
+      <li>Any new offering, product, or fund added alongside Allion Fund 1, before its page is published</li>
+      <li>Any state where we begin soliciting investors for the first time, to confirm notice filing requirements are met</li>
+      <li>Any individual investor conversation that raises a question the current disclosure language does not clearly answer</li>
+    </ul>
+
+    <h3>What does not need a fresh review each time</h3>
+    <ul>
+      <li>Personalizing outreach with an investor's name, a specific deal reference, or a greeting, none of which touches disclosure language</li>
+      <li>Reusing the already-approved disclosure block verbatim on a new supplemental page</li>
+      <li>Routine factual updates that do not touch terms, risk, or regulatory language (for example, a project photo or a contact phone number)</li>
+    </ul>
+
+    <h3>How an approved update is managed once counsel signs off</h3>
+    <ol>
+      <li><strong>Counsel approves the exact wording</strong> and the version is dated and recorded.</li>
+      <li><strong>The master page is updated first,</strong> and only the master page. No other page should ever get updated wording before the master page does.</li>
+      <li><strong>Every existing supplemental or one-off page that duplicates the disclosure text in full</strong> is identified from the distribution log and updated to match, or retired in favor of a link back to the master page.</li>
+      <li><strong>The distribution log is annotated</strong> to show which version was current as of the update date, so anything sent before that date can be identified if ever needed.</li>
+      <li><strong>The team is notified</strong> that a new approved version exists, so nobody continues sending outreach built on outdated language.</li>
+    </ol>
+    <p>The practical effect: counsel touches the wording exactly once per change, and that one approval propagates everywhere through the master page and the log, rather than requiring a separate review for every individual investor page in circulation.</p>
+    <div class="section-note">
+      <label for="note-9">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-9" data-title="Legal Counsel Review and Update Management" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section style="border-bottom:none;">
+    <h2>10. Suggested Next Steps</h2>
+    <ol>
+      <li>Route this report to our in-house Senior Legal Counsel, and to our Investor Advisor if not already involved, for confirmation of the specific disclosure language to standardize on. Do not adopt any draft language from this report or the earlier teaser without their sign-off.</li>
+      <li>Reconcile the Suite 105 / Suite 110 address discrepancy across the Form D, website, and marketing materials.</li>
+      <li>Confirm state notice filing status (Texas State Securities Board plus NASAA) for the current Form D, given general solicitation is in use.</li>
+      <li>Add the disclosure block to the live pedisonusa.com Allion pages, not just the standalone teaser.</li>
+      <li>Stand up the distribution log described in Section 6 before any further individualized investor pages go out.</li>
+      <li>Migrate the canonical Allion page into pedisonusa.com's own site architecture (per Section 7) rather than a standalone subdomain, and apply <code>noindex</code> plus canonical tags to any supplemental one-off pages already in circulation.</li>
+    </ol>
+    <p class="signoff">Happy to walk through any of this together whenever works for the team.<br>Lawrence</p>
+    <div class="section-note">
+      <label for="note-10">Note or question for this section</label>
+      <textarea class="notes-box small" id="note-10" data-title="Suggested Next Steps" placeholder="Type a note or question about this section..."></textarea>
+    </div>
+  </section>
+
+  <section id="reviewFormArea" style="border-bottom:none;">
+    <h2>Submit Your Review</h2>
+    <p>Every note you left throughout the report above will be compiled, labeled by section, and sent to Lawrence Hill and, since you provided your email above, back to you as well.</p>
+
+    <div id="fallbackFields" style="display:none;">
+      <div class="reviewer-fallback">
+        <div>
+          <label for="fallbackName">Your name</label>
+          <input type="text" id="fallbackName" placeholder="Full name">
+        </div>
+        <div>
+          <label for="fallbackEmail">Your email</label>
+          <input type="email" id="fallbackEmail" placeholder="name@company.com">
+        </div>
+      </div>
+    </div>
+
+    <button class="submit-btn" onclick="submitReview()">Submit Comments &amp; Close Review</button>
+
+    <div class="confirmation-box" id="reviewConfirmation">
+      <strong>Ready to send.</strong> Your email client should now be open with your comments pre-filled, addressed to Lawrence Hill and cc'd to you. Send that email to complete your review.
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const REPORT_VERSION = "v1.0 (July 15, 2026)";
+  let reviewer = { name: "", email: "" };
+
+  function saveReviewer(){
+    const firstInput = document.getElementById('modalFirstName');
+    const lastInput = document.getElementById('modalLastName');
+    const emailInput = document.getElementById('modalEmail');
+    const first = firstInput.value.trim();
+    const last = lastInput.value.trim();
+    const email = emailInput.value.trim();
+
+    const firstValid = first.length > 0;
+    const lastValid = last.length > 0;
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    document.getElementById('modalFirstNameError').classList.toggle('show', !firstValid);
+    firstInput.classList.toggle('invalid', !firstValid);
+    document.getElementById('modalLastNameError').classList.toggle('show', !lastValid);
+    lastInput.classList.toggle('invalid', !lastValid);
+    document.getElementById('modalEmailError').classList.toggle('show', !emailValid);
+    emailInput.classList.toggle('invalid', !emailValid);
+
+    if(!firstValid || !lastValid || !emailValid){
+      return;
+    }
+
+    const fullName = `${first} ${last}`;
+    reviewer.name = fullName;
+    reviewer.email = email;
+    document.getElementById('reviewerModal').style.display = 'none';
+    document.getElementById('fallbackName').value = fullName;
+    document.getElementById('fallbackEmail').value = email;
+  }
+
+  function encodeFormData(data){
+    return Object.keys(data)
+      .map(function(key){ return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]); })
+      .join('&');
+  }
+
+  function submitReview(){
+    let name = reviewer.name || document.getElementById('fallbackName').value.trim();
+    let email = reviewer.email || document.getElementById('fallbackEmail').value.trim();
+
+    if(!name){ name = document.getElementById('fallbackName').value.trim(); }
+    if(!email){ email = document.getElementById('fallbackEmail').value.trim(); }
+
+    if(!name || !email){
+      document.getElementById('fallbackFields').style.display = 'block';
+      alert('Please enter your name and email above before submitting.');
+      return;
+    }
+
+    const noteBoxes = document.querySelectorAll('.notes-box.small');
+    let compiledNotes = '';
+    let anyNotes = false;
+    noteBoxes.forEach(function(box){
+      const text = box.value.trim();
+      const title = box.getAttribute('data-title');
+      const num = box.id.replace('note-', '');
+      if(text){
+        anyNotes = true;
+        compiledNotes += `Section ${num} - ${title}:\n${text}\n\n`;
+      }
+    });
+    if(!anyNotes){
+      compiledNotes = '(no comments entered in any section)';
+    }
+
+    const mailtoFallback = function(){
+      const subject = `Review Comments - ${REPORT_VERSION} - ${name}`;
+      const body = `Reviewer: ${name} (${email})\n`
+        + `Report: Allion Fund 1, LP - Regulatory Disclosure Benchmark & Compliance Gap Report\n`
+        + `Version: ${REPORT_VERSION}\n\n`
+        + `Comments/Questions by section:\n\n${compiledNotes}`;
+      const mailtoLink = `mailto:lawrencehill@pedisonusa.com?cc=${encodeURIComponent(email)}&subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailtoLink;
+    };
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData({
+        'form-name': 'allion-review-comments',
+        name: name,
+        email: email,
+        reportVersion: REPORT_VERSION,
+        notes: compiledNotes
+      })
+    }).then(function(response){
+      if(!response.ok){ throw new Error('Netlify Forms submission failed'); }
+      document.getElementById('reviewConfirmation').innerHTML =
+        '<strong>Submitted.</strong> Your comments were sent directly to Lawrence Hill. No further action needed on your end.';
+      document.getElementById('reviewConfirmation').style.display = 'block';
+    }).catch(function(){
+      // Not hosted on Netlify, or the request failed. Fall back to the reader's own email client.
+      mailtoFallback();
+      document.getElementById('reviewConfirmation').innerHTML =
+        '<strong>Ready to send.</strong> This page isn\'t running on Netlify right now, so your email client should be open instead with your comments pre-filled, addressed to Lawrence Hill and cc\'d to you. Send that email to complete your review.';
+      document.getElementById('reviewConfirmation').style.display = 'block';
+    });
+  }
+</script>
+
+
+<footer>
+  <div class="wrap">
+    <p>This report reflects public site content and SEC/FormDS.com filings as reviewed on July 15, 2026. It is an internal working document to guide a conversation with counsel, not a substitute for legal review, and no page or disclosure change should be made to any live Pedison or Allion property based on this report alone.</p>
+    <p>Pedison USA Corporation &mdash; Gateway Tower, 8111 LBJ Freeway, Suite 110, Dallas, TX 75251 &mdash; Prepared by Lawrence Hill, Senior Manager, Structured Finance &amp; Capital Solutions</p>
+  </div>
+</footer>
+
+</body>
+</html>
